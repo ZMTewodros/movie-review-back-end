@@ -1,0 +1,1 @@
+// router.put("/promote/:id", authMiddleware, adminMiddleware, promoteToAdmin);
