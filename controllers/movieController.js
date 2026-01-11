@@ -4,12 +4,12 @@ import Review from "../models/Review.js";
 import User from "../models/User.js"; 
 import sequelize from "../config/db.js";
 
-// 1. Get All Movies (with Filtering)
+// 1. Get All Movies (with stable ordering for jumping pages)
 export const getAllMovies = async (req, res) => {
   try {
     const { page, limit, category_id } = req.query;
     const p = parseInt(page) || 1;
-    const l = parseInt(limit) || 5;
+    const l = parseInt(limit) || 4;
     
     const whereClause = {};
     if (category_id && category_id !== "undefined" && category_id !== "") {
@@ -20,6 +20,7 @@ export const getAllMovies = async (req, res) => {
       where: whereClause,
       limit: l,
       offset: (p - 1) * l,
+      order: [["id", "DESC"]], // Fixes the repeating movies issue
       attributes: [
         "id", "title", "author", "director", "image", "year", "category_id",
         [sequelize.fn("COALESCE", sequelize.fn("AVG", sequelize.col("Reviews.rating")), 0), "avgRating"],
@@ -34,9 +35,11 @@ export const getAllMovies = async (req, res) => {
       subQuery: false
     });
 
+    const totalItems = Array.isArray(count) ? count.length : count;
+
     res.json({
       movies: rows,
-      totalPages: Math.ceil((Array.isArray(count) ? count.length : count) / l),
+      totalPages: Math.ceil(totalItems / l),
       currentPage: p
     });
   } catch (error) {
@@ -63,7 +66,7 @@ export const getMovie = async (req, res) => {
   }
 };
 
-// 3. Create Movie (The missing export causing your error)
+// 3. Create Movie (This is the one causing your error)
 export const createMovie = async (req, res) => {
   try {
     const movie = await Movie.create(req.body);
