@@ -1,7 +1,7 @@
 import Review from "../models/Review.js";
 import User from "../models/User.js";
 
-// 1. Create a Review
+//  Create a Review
 export const createReview = async (req, res) => {
   const { movie_id, rating, comment } = req.body;
   try {
@@ -17,7 +17,7 @@ export const createReview = async (req, res) => {
   }
 };
 
-// 2. Update a Review
+//  Update a Review
 export const updateReview = async (req, res) => {
   const { rating, comment } = req.body;
   const reviewId = req.params.id;
@@ -43,7 +43,7 @@ export const updateReview = async (req, res) => {
   }
 };
 
-// 3. Get Reviews for a specific movie (Used by the Admin Dashboard)
+//  Get Reviews for a specific movie (Used by the Admin Dashboard)
 export const getReviewsByMovie = async (req, res) => {
   try {
     const { movieId } = req.params; // Matches the route /movie/:movieId

@@ -4,7 +4,7 @@ import Review from "../models/Review.js";
 import User from "../models/User.js"; 
 import sequelize from "../config/db.js";
 
-// 1. Get All Movies (with stable ordering for jumping pages)
+//  Get All Movies (with stable ordering for jumping pages)
 export const getAllMovies = async (req, res) => {
   try {
     const { page, limit, category_id } = req.query;
@@ -47,7 +47,7 @@ export const getAllMovies = async (req, res) => {
   }
 };
 
-// 2. Get Single Movie Details
+//  Get Single Movie Details
 export const getMovie = async (req, res) => {
   try {
     const movie = await Movie.findByPk(req.params.id, {
@@ -66,7 +66,7 @@ export const getMovie = async (req, res) => {
   }
 };
 
-// 3. Create Movie (This is the one causing your error)
+// Create Movie (This is the one causing your error)
 export const createMovie = async (req, res) => {
   try {
     const movie = await Movie.create(req.body);
@@ -76,7 +76,7 @@ export const createMovie = async (req, res) => {
   }
 };
 
-// 4. Update Movie
+//  Update Movie
 export const updateMovie = async (req, res) => {
   try {
     const movie = await Movie.findByPk(req.params.id);
@@ -88,7 +88,7 @@ export const updateMovie = async (req, res) => {
   }
 };
 
-// 5. Delete Movie
+// Delete Movie
 export const deleteMovie = async (req, res) => {
   try {
     const movie = await Movie.findByPk(req.params.id);

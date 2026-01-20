@@ -46,7 +46,7 @@ export const login = async (req, res) => {
   }
 };
 
-// ... existing imports ...
+
 
 export const promoteToAdmin = async (req, res) => {
   const { id } = req.params;

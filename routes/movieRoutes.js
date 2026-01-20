@@ -1,7 +1,7 @@
 import express from "express";
 import { 
   getAllMovies, 
-  getMovie,   // <--- This must exist in the controller
+  getMovie,   
   createMovie, 
   updateMovie, 
   deleteMovie 
